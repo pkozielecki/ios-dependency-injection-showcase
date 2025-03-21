@@ -4,19 +4,25 @@
 //
 
 import DIShowcasePackage
+import Foundation
 import SwiftUI
 
 @main
 struct DIShowcaseApp: App {
     var body: some Scene {
         WindowGroup {
-            TodoListView(
-                viewModel: ManualInjectionTodoListViewModel(
-                    storageService: LiveLocalStorage(
-                        userDefaults: UserDefaults(suiteName: "DIShowcase") ?? .standard
-                    )
-                )
-            )
+            manualDIToDoListView
         }
+    }
+}
+
+private extension DIShowcaseApp {
+    @MainActor
+    var manualDIToDoListView: some View {
+        ManualDIToDoListFactory.make(
+            storage: LiveLocalStorage(
+                userDefaults: UserDefaults(suiteName: "DIShowcase") ?? .standard
+            )
+        )
     }
 }

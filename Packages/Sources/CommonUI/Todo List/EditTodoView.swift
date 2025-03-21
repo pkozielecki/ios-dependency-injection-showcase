@@ -3,21 +3,37 @@
 //  iOS Dependency Injection Showcase
 //
 
-import DIShowcasePackage
+import Common
 import SwiftUI
 
 /// A view for editing the title of a to-do item.
-struct EditTodoView: View {
+public struct EditTodoView: View {
     /// A binding to the title of the to-do item being edited.
-    @Binding var title: String
+    @Binding
+    public var title: String
 
     /// The action to perform when the save button is tapped.
-    let onSave: () -> Void
+    public let onSave: () -> Void
 
     /// The action to perform when the cancel button is tapped.
-    let onCancel: () -> Void
+    public let onCancel: () -> Void
 
-    var body: some View {
+    /// Initializes a new instance of the EditTodoView.
+    /// - Parameters:
+    ///   - title: A binding to the title string that will be edited.
+    ///   - onSave: A closure that will be called when the user taps the Save button.
+    ///   - onCancel: A closure that will be called when the user taps the Cancel button.
+    public init(
+        title: Binding<String>,
+        onSave: @escaping () -> Void,
+        onCancel: @escaping () -> Void
+    ) {
+        _title = title
+        self.onSave = onSave
+        self.onCancel = onCancel
+    }
+
+    public var body: some View {
         NavigationStack {
             todoEditSection
                 .navigationTitle("Edit Todo")

@@ -3,24 +3,42 @@
 //  iOS Dependency Injection Showcase
 //
 
-import DIShowcasePackage
+import Common
 import SwiftUI
 
 /// A view representing a single row in a to-do list.
-struct TodoItemRow: View {
+public struct TodoItemRow: View {
     /// The to-do item displayed in the row.
-    let todo: TodoItem
+    public let todo: TodoItem
 
     /// The action to perform when the to-do item's completion status is toggled.
-    let onToggle: () -> Void
+    public let onToggle: () -> Void
 
     /// The action to perform when the to-do item is edited.
-    let onEdit: () -> Void
+    public let onEdit: () -> Void
 
     /// The action to perform when the to-do item is deleted.
-    let onDelete: () -> Void
+    public let onDelete: () -> Void
 
-    var body: some View {
+    /// Initializes a new instance of the TodoItemRow.
+    /// - Parameters:
+    ///   - todo: The TodoItem to be displayed and managed by this row.
+    ///   - onToggle: A closure to be called when the completion status of the todo item is toggled.
+    ///   - onEdit: A closure to be called when the user requests to edit the todo item.
+    ///   - onDelete: A closure to be called when the user requests to delete the todo item.
+    public init(
+        todo: TodoItem,
+        onToggle: @escaping () -> Void,
+        onEdit: @escaping () -> Void,
+        onDelete: @escaping () -> Void
+    ) {
+        self.todo = todo
+        self.onToggle = onToggle
+        self.onEdit = onEdit
+        self.onDelete = onDelete
+    }
+
+    public var body: some View {
         HStack {
             buttonToggle
             labelTitle

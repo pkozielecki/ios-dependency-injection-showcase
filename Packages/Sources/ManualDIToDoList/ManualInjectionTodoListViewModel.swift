@@ -3,7 +3,7 @@
 //  iOS Dependency Injection Showcase
 //
 
-import DIShowcasePackage
+import Common
 import Foundation
 import Observation
 import SwiftUI

@@ -41,7 +41,16 @@ extension Package {
 
                 // Utility dependencies
                 "Storage",
+
+                // Features:
+                "ManualDIToDoList",
             ]
+        ),
+
+        // Feature modules:
+        .target(
+            name: "ManualDIToDoList",
+            dependencies: Dependencies.common + []
         ),
 
         // Utility modules:
@@ -114,6 +123,13 @@ extension Package {
         .testTarget(
             name: "StorageTests",
             dependencies: Dependencies.test + ["Storage"],
+            swiftSettings: [SwiftSetting.swiftLanguageVersion]
+        ),
+
+        // Feature test modules:
+        .testTarget(
+            name: "ManualDIToDoListTests",
+            dependencies: Dependencies.test + ["ManualDIToDoList"],
             swiftSettings: [SwiftSetting.swiftLanguageVersion]
         ),
     ]

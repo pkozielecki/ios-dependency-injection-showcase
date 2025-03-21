@@ -8,7 +8,7 @@ import Inject
 import SwiftUI
 
 /// A view for displaying and managing a to-do list.
-struct TodoListView: View {
+public struct TodoListView: View {
     /// The view model providing data and actions for the to-do list.
     let viewModel: TodoListViewModel
 
@@ -21,7 +21,16 @@ struct TodoListView: View {
     #warning("DI-005 - Add interactions tests for view.")
     #warning("DI-006 - Extract alert to CommonUI.")
 
-    var body: some View {
+    /// Initializes a new instance of the TodoListView.
+    /// - Parameters:
+    ///   - viewModel: The view model of the TodoListVuew..
+    public init(
+        viewModel: TodoListViewModel
+    ) {
+        self.viewModel = viewModel
+    }
+
+    public var body: some View {
         NavigationStack {
             VStack {
                 addItemSection
