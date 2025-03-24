@@ -23,7 +23,7 @@ public struct TodoListView: View {
 
     /// Initializes a new instance of the TodoListView.
     /// - Parameters:
-    ///   - viewModel: The view model of the TodoListVuew..
+    ///   - viewModel: The view model of the TodoListView.
     public init(
         viewModel: TodoListViewModel
     ) {
@@ -36,7 +36,8 @@ public struct TodoListView: View {
                 addItemSection
                 itemsSection
             }
-            .navigationTitle("Todo List")
+            .padding(.top, 20)
+            .navigationTitle(viewModel.title)
             .sheet(item: $editingTodo) {
                 makeEditItemView(todo: $0)
             }
@@ -49,6 +50,9 @@ public struct TodoListView: View {
                 actions: { Button("OK") { viewModel.errorMessage = nil } },
                 message: { Text(viewModel.errorMessage ?? "") }
             )
+            .task {
+                viewModel.load()
+            }
         }
         .enableInjection()
     }

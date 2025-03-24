@@ -7,6 +7,7 @@
 
 // Features:
 @_exported import ManualDIToDoList
+@_exported import DependencyProviderToDoList
 
 // Utilities:
 @_exported import Storage

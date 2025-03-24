@@ -44,12 +44,17 @@ extension Package {
 
                 // Features:
                 "ManualDIToDoList",
+                "DependencyProviderToDoList",
             ]
         ),
 
         // Feature modules:
         .target(
             name: "ManualDIToDoList",
+            dependencies: Dependencies.common + []
+        ),
+        .target(
+            name: "DependencyProviderToDoList",
             dependencies: Dependencies.common + []
         ),
 
@@ -130,6 +135,11 @@ extension Package {
         .testTarget(
             name: "ManualDIToDoListTests",
             dependencies: Dependencies.test + ["ManualDIToDoList"],
+            swiftSettings: [SwiftSetting.swiftLanguageVersion]
+        ),
+        .testTarget(
+            name: "DependencyProviderToDoListTests",
+            dependencies: Dependencies.test + ["DependencyProviderToDoList"],
             swiftSettings: [SwiftSetting.swiftLanguageVersion]
         ),
     ]

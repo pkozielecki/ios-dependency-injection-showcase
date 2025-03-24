@@ -11,16 +11,17 @@ import SwiftUI
 /// A factory for creating to-do list views using manual dependency injection.
 @MainActor
 public enum ManualDIToDoListFactory {
-    /// Creates a `TodoListView` with a manually injected view model.
+    /// Creates a `TodoListView` to be used in the main app.
     /// - Parameter storage: The `LocalStorage` instance to be injected into the view model.
-    /// - Returns: A `TodoListView` configured with a manually injected view model.
+    /// - Returns: A `TodoListView`.
     @ViewBuilder
     public static func make(
         storage: LocalStorage
     ) -> some View {
         TodoListView(
-            viewModel: ManualInjectionTodoListViewModel(
-                storageService: storage
+            viewModel: LiveTodoListViewModel(
+                storageService: storage,
+                title: "Manual DI"
             )
         )
     }
