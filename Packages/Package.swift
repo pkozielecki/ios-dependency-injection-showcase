@@ -19,6 +19,7 @@ let package = Package(
     dependencies: [
         /// Tools dependency:
         .package(url: "https://github.com/krzysztofzablocki/Inject.git", exact: "1.5.2"),
+        .package(url: "https://github.com/Swinject/Swinject", exact: "2.9.1"),
 
         /// Tests dependencies:
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", exact: "1.18.1"),
@@ -45,10 +46,17 @@ extension Package {
                 // Features:
                 "ManualDIToDoList",
                 "DependencyProviderToDoList",
+                "ThirdPartyDIToDoList",
             ]
         ),
 
         // Feature modules:
+        .target(
+            name: "ThirdPartyDIToDoList",
+            dependencies: Dependencies.common + [
+                .product(name: "Swinject", package: "Swinject"),
+            ]
+        ),
         .target(
             name: "ManualDIToDoList",
             dependencies: Dependencies.common + []
@@ -140,6 +148,11 @@ extension Package {
         .testTarget(
             name: "DependencyProviderToDoListTests",
             dependencies: Dependencies.test + ["DependencyProviderToDoList"],
+            swiftSettings: [SwiftSetting.swiftLanguageVersion]
+        ),
+        .testTarget(
+            name: "ThirdPartyDIToDoListTests",
+            dependencies: Dependencies.test + ["ThirdPartyDIToDoList"],
             swiftSettings: [SwiftSetting.swiftLanguageVersion]
         ),
     ]

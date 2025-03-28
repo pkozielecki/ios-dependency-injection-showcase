@@ -7,7 +7,7 @@ import Common
 import Foundation
 
 /// A concrete implementation of the `LocalStorage` protocol that uses `UserDefaults` to manage data storage.
-public final class LiveLocalStorage: LocalStorage {
+public final class LiveLocalStorage: @unchecked Sendable, LocalStorage {
     /// The `UserDefaultsWrapper` instance for interacting with `UserDefaults`.
     private let userDefaults: UserDefaultsWrapper
 

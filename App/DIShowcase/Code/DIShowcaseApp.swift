@@ -6,6 +6,7 @@
 import DIShowcasePackage
 import Foundation
 import SwiftUI
+import Swinject
 
 @main
 struct DIShowcaseApp: App {
@@ -28,7 +29,13 @@ struct DIShowcaseApp: App {
                         )
                     }
 
-                #warning("DI-010 - Add 3rd party DI implementation")
+                thirdPartyDIDoListView
+                    .tabItem {
+                        Label(
+                            "3rd party DI",
+                            systemImage: "3.circle.fill"
+                        )
+                    }
             }
         }
     }
@@ -39,11 +46,7 @@ struct DIShowcaseApp: App {
 private extension DIShowcaseApp {
     @MainActor
     var manualDIToDoListView: some View {
-        ManualDIToDoListFactory.make(
-            storage: LiveLocalStorage(
-                userDefaults: UserDefaultsFactory.make()
-            )
-        )
+        ManualDIToDoListFactory.make(storage: makeStorage())
     }
 
     @MainActor
@@ -51,6 +54,14 @@ private extension DIShowcaseApp {
         let dependencyProvider = makeDependencyProvider()
         return DependencyProviderToDoListFactory.make(
             dependencyProvider: dependencyProvider
+        )
+    }
+
+    @MainActor
+    var thirdPartyDIDoListView: some View {
+        let dependencyContainer = makeSwinjectDependencyContainer()
+        return ThirdPartyDIToDoListFactory.make(
+            dependencyContainer: dependencyContainer
         )
     }
 }
@@ -63,9 +74,22 @@ private extension DIShowcaseApp {
     @MainActor
     func makeDependencyProvider() -> DependencyProvider {
         let dependencyManager = LiveDependencyManager()
-        let userDefaults = UserDefaultsFactory.make()
-        let storage = LiveLocalStorage(userDefaults: userDefaults)
+        let storage = makeStorage()
         dependencyManager.register(storage, for: LocalStorage.self)
         return dependencyManager
+    }
+
+    @MainActor
+    func makeSwinjectDependencyContainer() -> Container {
+        let container = Container()
+        let storage = makeStorage()
+        container.register(LocalStorage.self) { _ in storage }
+        return container
+    }
+
+    func makeStorage() -> LocalStorage {
+        let userDefaults = UserDefaultsFactory.make()
+        let storage = LiveLocalStorage(userDefaults: userDefaults)
+        return storage
     }
 }

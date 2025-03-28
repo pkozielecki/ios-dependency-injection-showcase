@@ -6,7 +6,7 @@
 import Foundation
 
 /// A protocol for managing local storage operations, including saving, loading, and removing data.
-public protocol LocalStorage {
+public protocol LocalStorage: Sendable {
     /// Saves an encodable item to local storage for the given key.
     /// - Parameters:
     ///   - items: The item to save.
