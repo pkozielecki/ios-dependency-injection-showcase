@@ -17,7 +17,6 @@ public struct TodoListView: View {
     @State private var editingTodo: TodoItem?
     @State private var editedTitle = ""
 
-    #warning("DI-005 - Add snapshot tests for view.")
     #warning("DI-005 - Add interactions tests for view.")
     #warning("DI-006 - Extract alert to CommonUI.")
 
