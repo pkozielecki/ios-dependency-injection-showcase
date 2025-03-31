@@ -102,9 +102,6 @@ extension Package {
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
                 .product(name: "InlineSnapshotTesting", package: "swift-snapshot-testing"),
             ],
-//            resources: [
-//                .process("Resources"),
-//            ],
             swiftSettings: [
                 .define("ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS"),
                 SwiftSetting.swiftLanguageVersion,
@@ -115,17 +112,11 @@ extension Package {
         .testTarget(
             name: "CommonTests",
             dependencies: Dependencies.test + ["Common"],
-            resources: [
-                .process("Resources"),
-            ],
             swiftSettings: [SwiftSetting.swiftLanguageVersion]
         ),
         .testTarget(
             name: "CommonUITests",
             dependencies: Dependencies.test + ["CommonUI"],
-            resources: [
-                .process("Resources"),
-            ],
             swiftSettings: [
                 .define("ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS"),
                 SwiftSetting.swiftLanguageVersion,

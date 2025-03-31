@@ -44,15 +44,6 @@ import Observation
         }
     }
 
-    /// - SeeAlso: `TodoListViewModel.save()`
-    public func save() {
-        do {
-            try storageService.save(todoItems, forKey: storageKey)
-        } catch {
-            errorMessage = "Failed to save todos: \(error.localizedDescription)"
-        }
-    }
-
     /// - SeeAlso: `TodoListViewModel.add(todo:)`
     public func add(todo: TodoItem) {
         guard !todo.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
@@ -85,5 +76,13 @@ import Observation
 private extension LiveTodoListViewModel {
     var storageKey: String {
         StorageKeys.todoList.rawValue
+    }
+
+    func save() {
+        do {
+            try storageService.save(todoItems, forKey: storageKey)
+        } catch {
+            errorMessage = "Failed to save todos: \(error.localizedDescription)"
+        }
     }
 }

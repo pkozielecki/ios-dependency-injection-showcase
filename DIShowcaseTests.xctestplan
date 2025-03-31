@@ -1,0 +1,67 @@
+{
+  "configurations" : [
+    {
+      "id" : "7D16EDAA-2A1E-4CB5-89A9-EC23E962C0ED",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/Packages",
+        "identifier" : "ThirdPartyDIToDoListTests",
+        "name" : "ThirdPartyDIToDoListTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Packages",
+        "identifier" : "CommonUITests",
+        "name" : "CommonUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Packages",
+        "identifier" : "CommonTests",
+        "name" : "CommonTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Packages",
+        "identifier" : "StorageTests",
+        "name" : "StorageTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:DIShowcase.xcodeproj",
+        "identifier" : "2A412F3D2D89557D00CF911C",
+        "name" : "DIShowcaseTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Packages",
+        "identifier" : "DependencyProviderToDoListTests",
+        "name" : "DependencyProviderToDoListTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Packages",
+        "identifier" : "ManualDIToDoListTests",
+        "name" : "ManualDIToDoListTests"
+      }
+    }
+  ],
+  "version" : 1
+}

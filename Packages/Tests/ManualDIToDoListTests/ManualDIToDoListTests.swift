@@ -1,4 +1,4 @@
 //
-//  ThirdPartyDIToDoListTests.swift
+//  ManualDIToDoListTests.swift
 //  iOS Dependency Injection Showcase
 //

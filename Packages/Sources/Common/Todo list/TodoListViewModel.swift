@@ -21,9 +21,6 @@ public protocol TodoListViewModel: Observable, AnyObject {
     /// Loads the to-do items from storage.
     func load()
 
-    /// Saves the current to-do items to storage.
-    func save()
-
     /// Adds a new to-do item to the list.
     /// - Parameter todo: The `TodoItem` to add.
     func add(todo: TodoItem)
