@@ -19,8 +19,6 @@ public final class LiveLocalStorage: @unchecked Sendable, LocalStorage {
         self.userDefaults = userDefaults
     }
 
-    #warning("DI-007 - Add CRUD unit tests for storage.")
-
     /// - SeeAlso: `LocalStorage.save(items:key:)`
     public func save(_ items: some Encodable, forKey key: String) throws {
         let data = try JSONEncoder().encode(items)
