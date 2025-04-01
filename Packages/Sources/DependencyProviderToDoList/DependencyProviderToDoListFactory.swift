@@ -17,7 +17,7 @@ public enum DependencyProviderToDoListFactory {
     @ViewBuilder
     public static func make(
         dependencyProvider: DependencyProvider
-    ) -> some View {
+    ) -> TodoListView {
         TodoListView(
             viewModel: LiveTodoListViewModel(
                 storageService: dependencyProvider.resolve(),

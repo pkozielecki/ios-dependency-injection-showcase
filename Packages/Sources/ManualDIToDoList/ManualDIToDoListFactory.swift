@@ -17,7 +17,7 @@ public enum ManualDIToDoListFactory {
     @ViewBuilder
     public static func make(
         storage: LocalStorage
-    ) -> some View {
+    ) -> TodoListView {
         TodoListView(
             viewModel: LiveTodoListViewModel(
                 storageService: storage,

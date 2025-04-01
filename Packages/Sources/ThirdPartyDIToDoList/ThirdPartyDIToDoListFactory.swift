@@ -13,11 +13,11 @@ import Swinject
 @MainActor public enum ThirdPartyDIToDoListFactory {
     /// Creates and returns a configured TodoListView.
     /// - Parameter dependencyContainer: The dependency injection container used to resolve dependencies.
-    /// - Returns: A TodoListView with its ViewModel and dependencies properly configured.
+    /// - Returns: A `TodoListView`.
     @ViewBuilder
     public static func make(
         dependencyContainer: Container
-    ) -> some View {
+    ) -> TodoListView {
         TodoListView(
             viewModel: LiveTodoListViewModel(
                 storageService: dependencyContainer.resolve(LocalStorage.self)!,

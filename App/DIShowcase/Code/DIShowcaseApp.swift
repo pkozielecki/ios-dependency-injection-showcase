@@ -3,66 +3,51 @@
 //  iOS Dependency Injection Showcase
 //
 
+import Common
 import DIShowcasePackage
-import Foundation
 import SwiftUI
 import Swinject
 
-@main
+/// Main entry point into the app - decides to run main app or test app.
+@main struct AppEntryPoint {
+    static func main() {
+        guard !isRunningTests() else {
+            TestApp.main()
+            return
+        }
+
+        DIShowcaseApp.main()
+    }
+
+    private static func isRunningTests() -> Bool {
+        NSClassFromString("XCTestCase") != nil
+    }
+}
+
+/// Main app.
 struct DIShowcaseApp: App {
+    @State private var dependencyProvider = makeDependencyProvider()
+    @State private var dependencyContainer = makeSwinjectDependencyContainer()
+    @State private var localStorage = makeStorage()
+
     var body: some Scene {
         WindowGroup {
-            TabView {
-                manualDIToDoListView
-                    .tabItem {
-                        Label(
-                            "Manual DI",
-                            systemImage: "hammer"
-                        )
-                    }
-
-                dependencyProviderToDoListView
-                    .tabItem {
-                        Label(
-                            "Dep. Provider",
-                            systemImage: "syringe.fill"
-                        )
-                    }
-
-                thirdPartyDIDoListView
-                    .tabItem {
-                        Label(
-                            "3rd party DI",
-                            systemImage: "3.circle.fill"
-                        )
-                    }
-            }
+            MainAppView(
+                dependencyProvider: dependencyProvider,
+                dependencyContainer: dependencyContainer,
+                localStorage: localStorage
+            )
         }
     }
 }
 
-// MARK: - View factories:
-
-private extension DIShowcaseApp {
-    @MainActor
-    var manualDIToDoListView: some View {
-        ManualDIToDoListFactory.make(storage: makeStorage())
-    }
-
-    @MainActor
-    var dependencyProviderToDoListView: some View {
-        let dependencyProvider = makeDependencyProvider()
-        return DependencyProviderToDoListFactory.make(
-            dependencyProvider: dependencyProvider
-        )
-    }
-
-    @MainActor
-    var thirdPartyDIDoListView: some View {
-        let dependencyContainer = makeSwinjectDependencyContainer()
-        return ThirdPartyDIToDoListFactory.make(
-            dependencyContainer: dependencyContainer
-        )
+/// Test app placeholder.
+struct TestApp: App {
+    var body: some Scene {
+        WindowGroup {
+            Text("Running tests...")
+                .font(.largeTitle)
+        }
     }
 }
 
@@ -72,7 +57,7 @@ private extension DIShowcaseApp {
     #warning("DI-008 - Extract dependencies creation to a separate factory")
 
     @MainActor
-    func makeDependencyProvider() -> DependencyProvider {
+    static func makeDependencyProvider() -> DependencyProvider {
         let dependencyManager = LiveDependencyManager()
         let storage = makeStorage()
         dependencyManager.register(storage, for: LocalStorage.self)
@@ -80,14 +65,14 @@ private extension DIShowcaseApp {
     }
 
     @MainActor
-    func makeSwinjectDependencyContainer() -> Container {
+    static func makeSwinjectDependencyContainer() -> Container {
         let container = Container()
         let storage = makeStorage()
         container.register(LocalStorage.self) { _ in storage }
         return container
     }
 
-    func makeStorage() -> LocalStorage {
+    static func makeStorage() -> LocalStorage {
         let userDefaults = UserDefaultsFactory.make()
         let storage = LiveLocalStorage(userDefaults: userDefaults)
         return storage
